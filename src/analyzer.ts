@@ -268,13 +268,16 @@ const makeExportStarRelativeForPresentation = (
 
 export default (
   files: File[],
+  checkOnlyFiles: File[],
   extraOptions?: ExtraCommandLineOptions & ExtraOptionsForPresentation,
 ): Analysis => {
   const filteredFiles = filterFiles(files, extraOptions);
 
   const exportMap = getExportMap(filteredFiles);
   expandExportFromStar(filteredFiles, exportMap);
-  filteredFiles.forEach((file) => processImports(file, exportMap));
+  [...filteredFiles, ...checkOnlyFiles].forEach((file) =>
+    processImports(file, exportMap),
+  );
 
   const analysis: Analysis = { unusedExports: {} };
   const unusedFiles: string[] = [];

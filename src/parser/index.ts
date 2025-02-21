@@ -110,7 +110,7 @@ const parseFile = (
       path,
       readFileSync(path, { encoding: 'utf8' }),
       ts.ScriptTarget.ES2015,
-      /*setParentNodes */ true,
+      /* setParentNodes */ true,
     ),
     baseUrl,
     paths,

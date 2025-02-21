@@ -43,6 +43,7 @@ export interface TsConfig {
   baseUrl: string;
   paths?: TsConfigPaths;
   files: string[];
+  checkOnlyFiles?: string[];
 }
 
 export interface ExtraCommandLineOptions {
@@ -59,6 +60,7 @@ export interface ExtraCommandLineOptions {
   showLineNumber?: boolean;
   silent?: boolean;
   findCompletelyUnusedFiles?: boolean;
+  onlyCheckInputFiles?: boolean;
 }
 
 export interface ExtraOptionsForPresentation {

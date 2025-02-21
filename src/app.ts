@@ -61,11 +61,20 @@ export const analyzeTsConfig = (
   files?: string[],
 ): Analysis => {
   const args = extractOptionsFromFiles(files);
-  const tsConfig = loadTsConfig(tsconfigPath, args.tsFiles);
+  const tsConfig = loadTsConfig(
+    tsconfigPath,
+    args.options?.onlyCheckInputFiles ? args.tsFiles : [],
+  );
+
+  const normalFiles = parseFiles(tsConfig, args.options);
+
+  const checkOnlyFiles = args.options?.onlyCheckInputFiles
+    ? parseFiles({ ...tsConfig, files: args.tsFiles ?? [] }, args.options)
+    : [];
 
   const options = {
     ...args.options,
     baseUrl: tsConfig.baseUrl,
   };
-  return analyze(parseFiles(tsConfig, args.options), options);
+  return analyze(normalFiles, checkOnlyFiles, options);
 };
